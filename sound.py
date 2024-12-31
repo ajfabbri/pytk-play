@@ -14,8 +14,9 @@ class Samples(enum.StrEnum):
 
 # uses pygame mixer to play sound samples as requested
 class Sound:
-    def __init__(self):
+    def __init__(self, volume=0.1):
         self.sound = None
+        self.volume = volume
 
     def play(self, sample: Samples):
         if self.sound:
@@ -24,4 +25,5 @@ class Sound:
         if not pygame.mixer.get_init():
             pygame.mixer.init()
         self.sound = pygame.mixer.Sound("sound/" + sample.value)
+        self.sound.set_volume(self.volume)
         self.sound.play()
